@@ -119,5 +119,6 @@ void output(char *path)
 		for (int i = memb[2].len; i > 0; i--)
 			printf("%d", memb[2].num[i - 1]);
 	}
+//	free(memb);
 }
 #endif // !HMATH_H

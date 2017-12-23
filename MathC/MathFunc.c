@@ -1,16 +1,24 @@
 #include "stdafx.h"
 #include "hMath.h"
 
+
+void useSign(struct Memb a, int coef)
+{
+	if (a.sign*coef < 0)
+	{
+		for (int i = 0; i < a.len; i++)
+			a.num[i] *= (a.sign*coef);
+	}
+}
+
 void math(struct Memb a, struct Memb b, char op, struct Memb *res)
 {
 	switch (op)
 	{
 	case '+':
 	{
-		for (int i = 0; i < b.len; i++)
-			b.num[i] *= b.sign;
-		for (int i = 0; i < a.len; i++)
-			a.num[i] *= a.sign;
+		useSign(a, 1);
+		useSign(b, 1);
 		if (a.len > b.len)
 			sum(a, b, res);
 		else sum(b, a, res);
@@ -18,10 +26,8 @@ void math(struct Memb a, struct Memb b, char op, struct Memb *res)
 	}
 	case '-':
 	{
-		for (int i = 0; i < b.len; i++)
-			b.num[i] *= (b.sign*(-1));
-		for (int i = 0; i < a.len; i++)
-			a.num[i] *= a.sign;
+		useSign(a, 1);
+		useSign(b, -1);
 		if (a.len > b.len)
 			sum(a, b, res);
 		else sum(b, a, res);
@@ -68,12 +74,12 @@ int compare(struct Memb a, struct Memb b)
 void sum(struct Memb a, struct Memb b, struct Memb *res)
 {
 	res->len = a.len + 1;
-	res->num = (int*)malloc((res->len + 1) * sizeof(int));
+	res->num = (int*)malloc((res->len) * sizeof(int));
 	res->sign = 1;
 	memset(res->num, 0, res->len * sizeof(int));
 	for (int i = 0; i < b.len; i++)
 	{
-		res->num[i] = a.num[i] + b.num[i];
+		res->num[i] += (a.num[i] + b.num[i]);
 		if (res->num[i] < 0)
 		{
 			res->num[i] += 10;
@@ -87,7 +93,7 @@ void sum(struct Memb a, struct Memb b, struct Memb *res)
 	}
 	for (int i = b.len; i < a.len; i++)
 	{
-		res->num[i] = a.num[i];
+		res->num[i] += a.num[i];
 		if (res->num[i] < 0)
 		{
 			res->num[i] += 10;
@@ -218,3 +224,4 @@ void divv(struct Memb a, struct Memb b, struct Memb *res)
 	}
 
 }
+
