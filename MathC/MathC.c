@@ -9,9 +9,12 @@
 
 int main(int argc, char **argv)
 {
-	input(argv);
+	input(argv); 
 	math(memb[0], memb[1], op, &memb[2]);
 	output(argv[2]);
+	free(memb[0].num);
+	free(memb[1].num);
+	free(memb[2].num);
 }
 
 void error(char *er)
@@ -119,6 +122,5 @@ void output(char *path)
 		for (int i = memb[2].len; i > 0; i--)
 			printf("%d", memb[2].num[i - 1]);
 	}
-//	free(memb);
 }
 #endif // !HMATH_H

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "stdlib.h"
 #include "hMath.h"
 
 
@@ -74,7 +75,7 @@ int compare(struct Memb a, struct Memb b)
 void sum(struct Memb a, struct Memb b, struct Memb *res)
 {
 	res->len = a.len + 1;
-	res->num = (int*)malloc((res->len) * sizeof(int));
+	res->num = (int*)malloc(res->len * sizeof(int));
 	res->sign = 1;
 	memset(res->num, 0, res->len * sizeof(int));
 	for (int i = 0; i < b.len; i++)
